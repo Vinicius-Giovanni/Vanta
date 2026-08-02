@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float walkSpeed = 5f;
     public float sprintSpeed = 8f;
-    public float jumpHeight = 10f;
+    public float jumpHeight = 5f;
     public float gravity = -9.81f;
 
     private CharacterController controller;
@@ -44,10 +44,10 @@ public class PlayerMovement : MonoBehaviour
             transform.right * move.x +
             transform.forward * move.y;
 
-        controller.Move(direction * speed * Time.deltaTime);
-
         if (controller.isGrounded && velocity.y < 0)
+        {
             velocity.y = -2f;
+        }
 
         if (input.Player.Jump.WasPressedThisFrame() && controller.isGrounded)
         {
@@ -56,11 +56,16 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        Vector3 finalMove = direction * speed;
+        finalMove.y = velocity.y;
+
+        controller.Move(finalMove * Time.deltaTime);
 
         if (input.Player.Jump.WasPressedThisFrame())
         {
-            Debug.Log("SPACE DETECTADO");
+            Debug.Log("Jump pressionado");
         }
+
+        Debug.Log(controller.isGrounded);
     }
 }
