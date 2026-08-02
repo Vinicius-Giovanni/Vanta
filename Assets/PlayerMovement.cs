@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed = 8f;
     public float jumpHeight = 5f;
     public float gravity = -9.81f;
-
     private CharacterController controller;
 
     private PlayerInputActions input;
@@ -60,12 +59,5 @@ public class PlayerMovement : MonoBehaviour
         finalMove.y = velocity.y;
 
         controller.Move(finalMove * Time.deltaTime);
-
-        if (input.Player.Jump.WasPressedThisFrame())
-        {
-            Debug.Log("Jump pressionado");
-        }
-
-        Debug.Log(controller.isGrounded);
     }
 }
